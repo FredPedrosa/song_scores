@@ -81,3 +81,8 @@ The `.Rmd` file provides a concrete example using Tim Maia's famous song. It dem
 *   **Model Downloads:** The first time you run `song_scores` (or any function using a specific Hugging Face model like CLAP, Whisper, or NLI), the required model files will be downloaded to a local cache (`~/.cache/huggingface/hub` by default). Subsequent runs will load the models from this cache and will be much faster.
 *   **Computational Resources:** Automatic Speech Recognition (especially with larger Whisper models like `large-v3`) can be computationally intensive and require significant RAM and time. Audio analysis with CLAP is generally faster.
 *   **Transcription Accuracy:** ASR accuracy depends on audio quality, background noise, singing style, and the chosen Whisper model size and language setting.
+
+
+### Reference
+
+ Tomasevic A, Golino H, Christensen A (2024). “Decoding emotion dynamics in videos using dynamic Exploratory Graph Analysis and zero-shot image classification: A simulation and tutorial using the transforEmotion R package.” _PsyArXiv_. doi:10.31234/osf.io/hf3g7 <https://doi.org/10.31234/osf.io/hf3g7>, <https://osf.io/preprints/psyarxiv/hf3g7>.
