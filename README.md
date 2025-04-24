@@ -1,6 +1,6 @@
 # Song Emotion Analysis (Audio & Lyrics) with R
 
-This repository demonstrates multimodal emotion analysis for songs using R. It utilizes custom functions `song_scores()` and `plot_scores()` to analyze emotions derived from both the audio signal (using a CLAP model) and the song lyrics, using a Natural Language Inference model via the `transforEmotion` package (Tomasevic , 2024). The analysis includes an option for automatic speech recognition (ASR) to transcribe lyrics using OpenAI's Whisper model.
+This repository demonstrates multimodal emotion song analysis using R. It utilizes custom functions `song_scores()` and `plot_scores()` to analyze emotions derived from both the audio signal (using a CLAP model) and the song lyrics, using a Natural Language Inference model via the `transforEmotion` package (Tomasevic , 2024). The analysis includes an option for automatic speech recognition (ASR) to transcribe lyrics using OpenAI's Whisper model.
 
 The primary example within this repository analyzes the song **"Gostava Tanto de Você"** by **Tim Maia**, showcasing the combined audio and text emotion scores.
 
