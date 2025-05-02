@@ -82,7 +82,20 @@ The `.Rmd` file provides a concrete example using Tim Maia's famous song. It dem
 *   **Computational Resources:** Automatic Speech Recognition (especially with larger Whisper models like `large-v3`) can be computationally intensive and require significant RAM and time. Audio analysis with CLAP is generally faster.
 *   **Transcription Accuracy:** ASR accuracy depends on audio quality, background noise, singing style, and the chosen Whisper model size and language setting.
 
+## How to Cite
+
+### Citing this Function/Code:
+Pedrosa, F. G. (2025). *song_scores: A function to implement multimodal emotion song analysis in R.*. [Software]. Retrieved from https://github.com/FredPedrosa/song_scores/
+
+## Author
+
+*   **Prof. Dr. Frederico G. Pedrosa**
 
 ### Reference
 
  Tomasevic A, Golino H, Christensen A (2024). “Decoding emotion dynamics in videos using dynamic Exploratory Graph Analysis and zero-shot image classification: A simulation and tutorial using the transforEmotion R package.” _PsyArXiv_. doi:10.31234/osf.io/hf3g7 <https://doi.org/10.31234/osf.io/hf3g7>, <https://osf.io/preprints/psyarxiv/hf3g7>.
+
+## License
+
+This project is licensed under a modified version of the GNU General Public License v3.0.  
+Commercial use is not permitted without explicit written permission from the author.
