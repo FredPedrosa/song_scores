@@ -1,8 +1,16 @@
-# Song Emotion Analysis (Audio & Lyrics) with R
+# Song Emotion Analysis (Audio & Lyrics) with R and Python (beta)
 
-This repository demonstrates multimodal emotion song analysis using R. It utilizes custom functions `song_scores()` and `plot_scores()` to analyze emotions derived from both the audio signal (using a CLAP model) and the song lyrics, using a Natural Language Inference model via the `transforEmotion` package (Tomasevic , 2024). The analysis includes an option for automatic speech recognition (ASR) to transcribe lyrics using OpenAI's Whisper model.
+This repository provides tools for multimodal emotion song analysis, primarily demonstrated using R but also including a beta implementation in Python available as both a script and an interactive notebook.
 
-The primary example within this repository analyzes the song **"Gostava Tanto de Você"** by **Tim Maia**, showcasing the combined audio and text emotion scores.
+**R Implementation:** It utilizes custom functions `song_scores()` and `plot_scores()` to analyze emotions derived from both the audio signal (using a CLAP model) and the song lyrics, using a Natural Language Inference model via the `transforEmotion` package (Tomasevic , 2024). The analysis includes an option for automatic speech recognition (ASR) to transcribe lyrics using OpenAI's Whisper model.
+
+**Python Implementation (Beta):** A standalone Python script (`song_scores_py.py`) and an original Google Colab notebook (`song_scores_py.ipynb`) offer similar core analysis functionality using libraries like Transformers, Librosa, and yt-dlp. See the dedicated Python section below for details.
+
+The primary R example within this repository analyzes the song **"Gostava Tanto de Você"** by **Tim Maia**, showcasing the combined audio and text emotion scores using the R functions. The Python files include their own examples.
+
+---
+
+# R
 
 ## Features
 
@@ -82,10 +90,101 @@ The `.Rmd` file provides a concrete example using Tim Maia's famous song. It dem
 *   **Computational Resources:** Automatic Speech Recognition (especially with larger Whisper models like `large-v3`) can be computationally intensive and require significant RAM and time. Audio analysis with CLAP is generally faster.
 *   **Transcription Accuracy:** ASR accuracy depends on audio quality, background noise, singing style, and the chosen Whisper model size and language setting.
 
+---
+
+# Python - BETA
+
+This repository also includes a **beta version** of the core analysis functionality implemented purely in Python. This is available in two formats:
+
+1.  **`song_scores_py.py`:** A standalone Python script containing the core analysis function (`song_scores_py()`) and helper functions. This script is suitable for importing into other Python projects or running directly from the command line (it includes a basic example execution block).
+2.  **`song_scores_py.ipynb`:** The original Google Colaboratory notebook from which the `.py` script was derived. This notebook includes the same core functions but also contains the interactive UI elements (`ipywidgets`) for easier experimentation directly within Colab or a compatible Jupyter environment.
+
+**Status:** This Python implementation is currently considered **beta**. While functional, it may undergo changes and further refinement. It does not yet have the same level of integration testing as the R version. The notebook (`.ipynb`) might be slightly out of sync with the `.py` script regarding recent code refinements (like the example block).
+
+### Python Prerequisites
+
+To use either the Python script or the notebook, you need Python 3.8+ and the following packages installed, preferably in a dedicated virtual environment (like Conda or venv):
+
+1.  **Create Environment (Example with Conda):**
+    ```bash
+    conda create -n song_py python=3.9 -y
+    conda activate song_py
+    ```
+2.  **Install Packages:**
+    ```bash
+    # Core ML/Audio libraries
+    pip install torch transformers accelerate librosa soundfile pandas numpy
+
+    # Plotting
+    pip install matplotlib
+
+    # YouTube download capability
+    pip install yt-dlp
+
+    # For the Notebook's interactive UI and audio display:
+    pip install ipywidgets ffmpeg-python ipython
+
+    # Highly Recommended: FFmpeg for broad audio format support (can be installed via conda or system)
+    conda install -c conda-forge ffmpeg # If using conda environment
+    ```
+    *   Ensure `torch` is installed correctly for your CPU/GPU setup (check PyTorch official website if needed).
+    *   Note: `ffmpeg-python` is needed by the *notebook* specifically for its UI interactions if saving uploads; the core `librosa` functionality generally relies on the command-line `ffmpeg` installed via Conda or the system.
+
+### Python Usage
+
+*   **Using the Script (`song_scores_py.py`):**
+    *   Import the functions into your own Python code as shown in the example below.
+    *   Run the script directly (`python song_scores_py.py`) to see the built-in example execute.
+
+    ```python
+    # Example of importing and using the script's function
+    import song_scores_py
+    import matplotlib.pyplot as plt
+    import os
+
+    audio_file = "path/to/your/song.mp3" # Replace with your audio file
+    emo_classes = ["happy", "sad", "angry", "calm"]
+
+    if os.path.exists(audio_file):
+        results = song_scores_py.song_scores_py(
+            audio_path=audio_file,
+            audio_classes=emo_classes,
+            text_classes=emo_classes, # Also analyze text
+            transcribe_audio=True,    # Request transcription
+            start_sec=10.0,           # Analyze segment from 10s to 40s
+            end_sec=40.0,
+            asr_model_id="openai/whisper-base", # Choose ASR model
+            verbose=True
+        )
+
+        print("\n--- Analysis Results ---")
+        # Print scores using pandas for nice formatting
+        import pandas as pd
+        print("Audio Scores:")
+        print(pd.Series(results.get('audio_scores')).to_string())
+        print("\nText Scores:")
+        print(pd.Series(results.get('text_scores')).to_string())
+        print(f"\nTranscription Preview: {results.get('transcribed_text', '')[:100]}...")
+
+        # Plot the results
+        fig = song_scores_py.plot_scores_py(results, title="My Song Analysis (10-40s)")
+        if fig:
+            plt.show() # Display the plot
+    else:
+        print(f"Error: Audio file not found at {audio_file}")
+    ```
+
+*   **Using the Notebook (`song_scores_py.ipynb`):**
+    *   Open the notebook in Google Colab ("File" -> "Open notebook" -> "GitHub" tab, paste the repository URL).
+    *   Alternatively, run it in a local Jupyter environment that has the prerequisites installed.
+    *   Execute the cells sequentially. The notebook provides an interactive interface using widgets to select options and run the analysis.
+
+---
+
 ## How to Cite
 
 ### Citing this Function/Code:
-Pedrosa, F. G. (2025). *song_scores: A function to implement multimodal emotion song analysis in R.*. [Software]. Retrieved from https://github.com/FredPedrosa/song_scores/
+Pedrosa, F. G. (2025). *song_scores: Functions to implement multimodal emotion song analysis in R and Python.*. [Software]. Retrieved from https://github.com/FredPedrosa/song_scores/
 
 ## Author
 
@@ -97,5 +196,5 @@ Pedrosa, F. G. (2025). *song_scores: A function to implement multimodal emotion 
 
 ## License
 
-This project is licensed under a modified version of the GNU General Public License v3.0.  
+This project is licensed under a modified version of the GNU General Public License v3.0. 
 Commercial use is not permitted without explicit written permission from the author.
