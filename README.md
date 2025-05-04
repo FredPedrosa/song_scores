@@ -189,6 +189,7 @@ Pedrosa, F. G. (2025). *song_scores: Functions to implement multimodal emotion s
 ## Author
 
 *   **Prof. Dr. Frederico G. Pedrosa**
+*   fredericopedrosa@ufmg.br
 
 ### Reference
 
